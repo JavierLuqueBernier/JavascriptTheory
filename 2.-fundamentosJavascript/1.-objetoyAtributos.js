@@ -13,6 +13,8 @@ function imprimirMayusculas(nombre) {
 }
 imprimirMayusculas(jose.nombre)
 /*Escribir el nombre de un objeto separado por un punto del nombre de un atributo, nos permite acceder al valor de dicho atributo para ese objeto.*/
+
+
 //Mejorando un poco 
 
 function imprimirMayusculas(persona) {
