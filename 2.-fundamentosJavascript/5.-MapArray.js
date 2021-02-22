@@ -34,13 +34,19 @@ let paula = {
   altura: 1.76
 }
 
+const esAlta = ({ altura }) => altura > 1.8;
+
 let personas = [ sacha, alan, martin, dario, vicky, paula]
 
-const esAlta = ({ altura }) => altura > 1.8;
+for (var i = 0; i < personas.length; i++) {
+  var persona = personas[i]
+  console.log(`${persona.nombre} mide ${persona.altura} metros`)
+}
 
 var personasAltas = personas.filter(esAlta);
 
 /* const pasarAlturaCms = altura => {
+  persona.altura *= 100; // esta linea y la siguiente hsignifican lo mismo pues el signo *= nos ayuda a ello al coger el valor que se encuentra delante del igual
   persona.altura = persona.altura * 100;
   return persona;
 }

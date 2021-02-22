@@ -12,6 +12,10 @@ console.log(`Al inicio del año ${jose.nombre} pesa ${jose.peso} kilogramos`);
 const INCREMENTO_PESO = 0.2;
 const DIAS_DEL_AÑO = 365;
 
+/* function aumentarDePeso (persona) {
+    return persona.peso += INCREMENTO_PESO
+    }
+*/ // La funcion comentada hace lo mismo que la que hay a continuación
 const aumentarDePeso = persona => persona.peso += INCREMENTO_PESO;
 const adelgazar = persona => persona.peso -= INCREMENTO_PESO;
 

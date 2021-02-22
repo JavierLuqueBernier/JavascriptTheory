@@ -73,6 +73,14 @@ var totalDeLibros = personas.reduce(reducer, 0)
 
 console.log(`En total todos tienen ${ totalDeLibros } libros` )
 
-// y para resumirlo, podría quedar de la siguiente manera
+// y para resumirlo, podría quedar de la siguiente manera:
 
-const reducer = (acum, persona) => acum + persona.cantidadDeLibros
+/*
+
+const reducer = (acum, persona) => acum + persona.cantidadDeLibros 
+
+*/
+
+// O incluso más reducido, desestructurando la persona, de la siguiente manera:
+
+const reducer = (acum, { cantidadDeLibros}) => acum + cantidadDeLibros;

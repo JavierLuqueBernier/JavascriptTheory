@@ -23,11 +23,11 @@ const calcularSigno = function(signo){
         case 'tauro':
             console.log(horoscopos.tauro);
             break;
-        case 'geminis':
+        case 'geminis': // repetimos todos aquellos que pueden darse con tilde o sin tilde
         case 'géminis':
             console.log(horoscopos.geminis);
             break;
-        case 'cancer':
+        case 'cancer': // repetimos todos aquellos que pueden darse con tilde o sin tilde
         case 'cáncer':
             console.log(horoscopos.cancer);
             break;
@@ -40,7 +40,7 @@ const calcularSigno = function(signo){
         case 'libra':
             console.log(horoscopos.libra);
             break;
-        case 'escorpion':
+        case 'escorpion': // repetimos todos aquellos que pueden darse con tilde o sin tilde
         case 'escorpión':
             console.log(horoscopos.escorpion);
             break;
