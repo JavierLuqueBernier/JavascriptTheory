@@ -3,17 +3,21 @@ const violeta = document.getElementById('violeta')
 const naranja = document.getElementById('naranja')
 const verde = document.getElementById('verde')
 
-const btnEmpezar = document.getElementById('btnEmpezar') // 6.- Para poder ocultar el boton, lo primero que debemos hacer es recibir la señal que nos llegue el id
-                                                         //  desde btnEmepzar en el html
+const btnEmpezar = document.getElementById('btnEmpezar') // 6.- Para poder ocultar el boton, lo primero que debemos hacer es recibir la señal que nos lleve el id
+                                                         //  desde btnEmpezar en el html
+
+const ULTIMO_NIVEL = 10;
 
 class Juego {               // 3.- Creamos la clase juego con su constructor
     constructor() {
         this.inicializar()  // 4.- Iniciamos dentro del constructor
-        this.generarSecuencia()  // 7.- Iniciamos dentro del constructor el generardor de secuencia aleatoria de colores
-        this.siguienteNivel()  // 12.- Iniciamos la funcion que nos hará ir avanzando por los diferentes niveles.
+            this.generarSecuencia()  // 7.- Iniciamos dentro del constructor el generardor de secuencia aleatoria de colores
+        setTimeout(this.siguienteNivel, 1000)  // 12.- Iniciamos la funcion que nos hará ir avanzando por los diferentes niveles.
+        
     }
 
     inicializar() {
+        this.siguienteNivel = this.siguienteNivel.bind(this)
         this.elegirColor = this.elegirColor.bind(this); // 23.- .bind(this) debe ser utilizado porque al capturar el evento addEventListener, (linea 77) en 'this.elegirColor' 
                                                         // se hace referencia al boton, al elemento html y no a la clase Juego de la linea 9, y eso debe corregirse
                                                         // atandole al addEventListener la función elegirColor()
@@ -30,7 +34,7 @@ class Juego {               // 3.- Creamos la clase juego con su constructor
     }
 
     generarSecuencia() {  // 8.- creamos la función que va a generar la secuencia aleatoria, solo que en lugar de colores será de numeros que luego convertiremos en colores
-        this.secuencia = new Array(10).fill(0).map(n => Math.floor(Math.random() *4))// 9.- Al crear la secuencia indicamos que esta debe tener un total de 10 dígitos.
+        this.secuencia = new Array(ULTIMO_NIVEL).fill(0).map(n => Math.floor(Math.random() *4))// 9.- Al crear la secuencia indicamos que esta debe tener un total de 10 dígitos.
                                                 // Cada uno de esos dígitos va a oscilar entre 0 y 1 (propiedad de Math.random), pero como lo que queremos es que dichos dígitos
                                                 // oscilen entre 0 y 4, multiplicamos el valor de Math.random por 4. Como el valor que nos va a dar es decimal, hacemos el 
                                                 // redondeo con Math.floor. Esos números van a ser insertados en el array con el método .fill(indispensable para 
@@ -39,6 +43,7 @@ class Juego {               // 3.- Creamos la clase juego con su constructor
     }
 
     siguienteNivel() {
+        this.subnivel = 0;
         this.iluminarSecuencia(); // 13.- Invocamos la función iluminarSecuencia(), es decir, cada vez que llegue un nuevo nivel, se va a iluminar la secuencia
         this.agregarEventosClick(); // 21.- Debemos verificar que los botones que pulse el jugador son correctos, asique empezamos agregando eventos a los clicks
     }
@@ -56,10 +61,23 @@ class Juego {               // 3.- Creamos la clase juego con su constructor
         }
     }
 
+    transformarColorANumero(color) { // 25.- Aquí transformamos los colores a números
+        switch(color) {
+            case 'celeste':
+                return 0;
+            case 'violeta':
+                return 1;
+            case 'naranja':
+                return 2;
+            case 'verde':
+                return 3;
+        }
+    }
+
     iluminarSecuencia() { // 14.- Esta función va a recorrer el array de la secuencia hasta el nivel en el que estemos, de ahí el ciclo for
         for (let i = 0; i < this.nivel; i++) { 
             const color = this.transformarNumeroAColor(this.secuencia[i]) // 16.- Le pasamos el número en el que estamos en cada secuencia para que nos lo indique con [i]
-            setTimeout(() => this.iluminarColor(color), 1000 * i)  // 17.- pedimos que se ilumine dicho color, pero debe dejar un tiempo al iluminarse cada uno
+            setTimeout(() => this.iluminarColor(color), 500 * i)  // 17.- pedimos que se ilumine dicho color, pero debe dejar un tiempo al iluminarse cada uno
         }
     }
 
@@ -80,8 +98,35 @@ class Juego {               // 3.- Creamos la clase juego con su constructor
         this.colores.verde.addEventListener('click', this.elegirColor.bind(this))
     }
 
-    elegirColor(ev) { // 24.- Utilizamos ev como parametro pues hace refencia a lo captado en el EventListener
+    eliminarEventosClick() {
+        this.colores.celeste.removeEventListener('click', this.elegirColor.bind(this))
+        this.colores.violeta.removeEventListener('click', this.elegirColor.bind(this))
+        this.colores.naranja.removeEventListener('click', this.elegirColor.bind(this)) 
+        this.colores.verde.removeEventListener('click', this.elegirColor.bind(this))
+    }
 
+    elegirColor(ev) { // 24.- Utilizamos ev como parametro pues hace refencia a lo captado en el EventListener
+        const nombreColor = ev.target.dataset.color; // 26.- target.dataset.color hace refencia al contenido del campo color dentro del dataset de cada uno de los botones,
+                                                     // campo que creamos nosotros poniendo en el html el atributo data-color (lineas 10, 11, 12 y 13) y que podemos ver si
+                                                     // inspeccionamos los botones en el navegador, dentro del atributo target
+
+        const numeroColor = this.transformarColorANumero(nombreColor); // 27.- traducimos de color a número
+        this.iluminarColor(nombreColor);                               // 28.- iluminamos el boton pulsado
+
+        if (numeroColor === this.secuencia[this.subnivel]) {     // 29.- Si el boton pulsado es igual al mostrado, el nivel en el que nos encontramos (nivel 0 o subnivel) avanza
+            this.subnivel++;
+            if (this.subnivel === this.nivel) {     // 30.- si avanza el subnivel, avanza el nivel de los colores
+                this.nivel++
+                this.eliminarEventosClick(); // 31.- eliminamos la posibilidad de hacer click una vez hemos acertado todos los colores
+                if (this.nivel === (ULTIMO_NIVEL + 1)) { // 32.- Si el nivel llega a 10, se acaba el juego porque gana el jugador
+                    // Gana
+                } else { // 33.- Si aun no llega a 10 el nivel significa que el juego aún no ha acabado y debe avanzar al siguiente nivel con un retraso de 1.5 segundos
+                    setTimeout(this.siguienteNivel, 1500)
+                }
+            }
+        } else {
+            //perdio
+        }
     }
 }
 
