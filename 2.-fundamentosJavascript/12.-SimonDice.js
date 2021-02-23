@@ -9,13 +9,14 @@ const btnEmpezar = document.getElementById('btnEmpezar') // 6.- Para poder ocult
 class Juego {               // 3.- Creamos la clase juego con su constructor
     constructor() {
         this.inicializar()  // 4.- Iniciamos dentro del constructor
-        this.generarSecuencia()     // 7.- Iniciamos dentro del constructor el generardor de secuencia aleatoria de colores
+        this.generarSecuencia()  // 7.- Iniciamos dentro del constructor el generardor de secuencia aleatoria de colores
+        this.siguienteNivel()  // 12.- Iniciamos la funcion que nos hará ir avanzando por los diferentes niveles.
     }
 
     inicializar() {
         btnEmpezar.classList.add('hide') // 5.- Lo primero que va a hacer el juego al iniciar es ocultar el boton de empezar añadiendo a todos los elementos
                                          // de btnEmpezar la clase .hide
-        this.nivel = 1; // 10.- Con esto más tarde podremos ir añadiendo niveles de dificultad
+        this.nivel = 1; // 10.- Con esto más tarde podremos ir añadiendo los niveles de dificultad
         this.colores = { // 11.- Guardamos los colores para poder trabajar con ellos más tarde
             celeste,
             violeta,
@@ -31,6 +32,40 @@ class Juego {               // 3.- Creamos la clase juego con su constructor
                                                 // redondeo con Math.floor. Esos números van a ser insertados en el array con el método .fill(indispensable para 
                                                 // el funcionamiento del .map) y leidos con el método .map
         
+    }
+
+    siguienteNivel() { // 13.- Invocamos la función iluminarSecuencia(), es decir, cada vez que llegue un nuevo nivel, se va a iluminar la secuencia
+        this.iluminarSecuencia()
+    }
+
+    transformarNumeroAColor(numero) { // 15.- Aquí transformamos los números a colores
+        switch(numero) {
+            case 0:
+                return 'celeste';
+            case 1:
+                return 'violeta';
+            case 2:
+                return 'naranja';
+            case 3:
+                return 'verde';
+        }
+    }
+
+    iluminarSecuencia() { // 14.- Esta función va a recorrer el array de la secuencia hasta el nivel en el que estemos, de ahí el ciclo for
+        for (let i = 0; i < this.nivel; i++) { 
+            const color = this.transformarNumeroAColor(this.secuencia[i]) // 16.- Le pasamos el número en el que estamos en cada secuencia para que nos lo indique con [i]
+            setTimeout(() => this.iluminarColor(color), 1000 * i)  // 17.- pedimos que se ilumine dicho color, pero debe dejar un tiempo al iluminarse cada uno
+        }
+    }
+
+    iluminarColor(color) {
+        this.colores[color].classList.add('light') // 18.- Dentro de los colores guardados (linea 20) le decimos que color queremos y a ese color le añadimos la clase .light
+        setTimeout(() => this.apagarColor(color), 350) // 19.- La iluminación solo debe parpadear, por lo que le añadimos un temporizador y decimos que al finalizar el tiempo
+                                                       // seleccionado (350 ms) debe ejecutarse la función apagarColor() para que vuelva al color original
+    }
+
+    apagarColor(color) {
+        this.colores[color].classList.remove('light') // 20.- le quitamos la clase .light a los colores con esta función
     }
 }
 
