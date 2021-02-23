@@ -14,6 +14,10 @@ class Juego {               // 3.- Creamos la clase juego con su constructor
     }
 
     inicializar() {
+        this.elegirColor = this.elegirColor.bind(this); // 23.- .bind(this) debe ser utilizado porque al capturar el evento addEventListener, (linea 77) en 'this.elegirColor' 
+                                                        // se hace referencia al boton, al elemento html y no a la clase Juego de la linea 9, y eso debe corregirse
+                                                        // atandole al addEventListener la función elegirColor()
+
         btnEmpezar.classList.add('hide') // 5.- Lo primero que va a hacer el juego al iniciar es ocultar el boton de empezar añadiendo a todos los elementos
                                          // de btnEmpezar la clase .hide
         this.nivel = 1; // 10.- Con esto más tarde podremos ir añadiendo los niveles de dificultad
@@ -34,8 +38,9 @@ class Juego {               // 3.- Creamos la clase juego con su constructor
         
     }
 
-    siguienteNivel() { // 13.- Invocamos la función iluminarSecuencia(), es decir, cada vez que llegue un nuevo nivel, se va a iluminar la secuencia
-        this.iluminarSecuencia()
+    siguienteNivel() {
+        this.iluminarSecuencia(); // 13.- Invocamos la función iluminarSecuencia(), es decir, cada vez que llegue un nuevo nivel, se va a iluminar la secuencia
+        this.agregarEventosClick(); // 21.- Debemos verificar que los botones que pulse el jugador son correctos, asique empezamos agregando eventos a los clicks
     }
 
     transformarNumeroAColor(numero) { // 15.- Aquí transformamos los números a colores
@@ -66,6 +71,17 @@ class Juego {               // 3.- Creamos la clase juego con su constructor
 
     apagarColor(color) {
         this.colores[color].classList.remove('light') // 20.- le quitamos la clase .light a los colores con esta función
+    }
+
+    agregarEventosClick() {
+        this.colores.celeste.addEventListener('click', this.elegirColor.bind(this)) // 22.- Agregamos un escuchador de eventos en cada uno de los colores
+        this.colores.violeta.addEventListener('click', this.elegirColor.bind(this))
+        this.colores.naranja.addEventListener('click', this.elegirColor.bind(this)) 
+        this.colores.verde.addEventListener('click', this.elegirColor.bind(this))
+    }
+
+    elegirColor(ev) { // 24.- Utilizamos ev como parametro pues hace refencia a lo captado en el EventListener
+
     }
 }
 
