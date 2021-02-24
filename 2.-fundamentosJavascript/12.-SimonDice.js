@@ -6,7 +6,7 @@ const verde = document.getElementById('verde')
 const btnEmpezar = document.getElementById('btnEmpezar') // 6.- Para poder ocultar el boton, lo primero que debemos hacer es recibir la señal que nos lleve el id
                                                          //  desde btnEmpezar en el html
 
-const ULTIMO_NIVEL = 1;
+const ULTIMO_NIVEL = 10;
 
 class Juego {               // 3.- Creamos la clase juego con su constructor
     constructor() {
@@ -22,15 +22,22 @@ class Juego {               // 3.- Creamos la clase juego con su constructor
         this.elegirColor = this.elegirColor.bind(this); // 23.- .bind(this) debe ser utilizado porque al capturar el evento addEventListener, (linea 77) en 'this.elegirColor' 
                                                         // se hace referencia al boton, al elemento html y no a la clase Juego de la linea 9, y eso debe corregirse
                                                         // atandole al addEventListener la función elegirColor()
-
-        btnEmpezar.classList.add('hide') // 5.- Lo primero que va a hacer el juego al iniciar es ocultar el boton de empezar añadiendo a todos los elementos
-                                         // de btnEmpezar la clase .hide
+        this.interruptorBtnEmpezar();
         this.nivel = 1; // 10.- Con esto más tarde podremos ir añadiendo los niveles de dificultad
         this.colores = { // 11.- Guardamos los colores para poder trabajar con ellos más tarde
             celeste,
             violeta,
             naranja,
             verde
+        }
+    }
+
+    interruptorBtnEmpezar() { // 5.- Lo primero que va a hacer el juego al iniciar es ocultar el boton de Empezar! añadiendo a todos los elementos de btnEmpezar la clase
+                              // .hide o mostrar el botón en caso de que hallamos acabado el juego y tengamos que reempezar
+        if (btnEmpezar.classList.contains('hide')) {
+            btnEmpezar.classList.remove('hide')
+        } else {
+            btnEmpezar.classList.add('hide')
         }
     }
 
