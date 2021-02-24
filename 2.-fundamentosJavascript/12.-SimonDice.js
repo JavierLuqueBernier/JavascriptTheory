@@ -1,7 +1,7 @@
-const celeste = document.getElementById('celeste')
-const violeta = document.getElementById('violeta')
-const naranja = document.getElementById('naranja')
-const verde = document.getElementById('verde')
+const celeste = document.getElementById('celeste');
+const violeta = document.getElementById('violeta');
+const naranja = document.getElementById('naranja');
+const verde = document.getElementById('verde');
 
 const btnEmpezar = document.getElementById('btnEmpezar') // 6.- Para poder ocultar el boton, lo primero que debemos hacer es recibir la señal que nos lleve el id
                                                          //  desde btnEmpezar en el html
@@ -12,7 +12,7 @@ class Juego {               // 3.- Creamos la clase juego con su constructor
     constructor() {
         this.inicializar = this.inicializar.bind(this); // 35.- Colocamos .bind(this) aqui igual que en comentario 23 pero por las funciones ganoElJuego() y perdioElJuego()
         this.inicializar()  // 4.- Iniciamos dentro del constructor
-        this.generarSecuencia()  // 7.- Iniciamos dentro del constructor el generardor de secuencia aleatoria de colores
+        this.generarSecuencia()  // 7.- Iniciamos el generador de secuencia aleatoria de colores
         setTimeout(this.siguienteNivel, 1000)  // 12.- Iniciamos la funcion que nos hará ir avanzando por los diferentes niveles.
         
     }
@@ -23,6 +23,7 @@ class Juego {               // 3.- Creamos la clase juego con su constructor
                                                         // se hace referencia al boton, al elemento html y no a la clase Juego de la linea 9, y eso debe corregirse
                                                         // atandole al addEventListener la función elegirColor()
         this.interruptorBtnEmpezar();
+
         this.nivel = 1; // 10.- Con esto más tarde podremos ir añadiendo los niveles de dificultad
         this.colores = { // 11.- Guardamos los colores para poder trabajar con ellos más tarde
             celeste,
