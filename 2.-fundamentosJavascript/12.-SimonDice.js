@@ -6,12 +6,13 @@ const verde = document.getElementById('verde')
 const btnEmpezar = document.getElementById('btnEmpezar') // 6.- Para poder ocultar el boton, lo primero que debemos hacer es recibir la señal que nos lleve el id
                                                          //  desde btnEmpezar en el html
 
-const ULTIMO_NIVEL = 10;
+const ULTIMO_NIVEL = 1;
 
 class Juego {               // 3.- Creamos la clase juego con su constructor
     constructor() {
+        this.inicializar = this.inicializar.bind(this); // 35.- Colocamos .bind(this) aqui igual que en comentario 23 pero por las funciones ganoElJuego() y perdioElJuego()
         this.inicializar()  // 4.- Iniciamos dentro del constructor
-            this.generarSecuencia()  // 7.- Iniciamos dentro del constructor el generardor de secuencia aleatoria de colores
+        this.generarSecuencia()  // 7.- Iniciamos dentro del constructor el generardor de secuencia aleatoria de colores
         setTimeout(this.siguienteNivel, 1000)  // 12.- Iniciamos la funcion que nos hará ir avanzando por los diferentes niveles.
         
     }
@@ -119,14 +120,28 @@ class Juego {               // 3.- Creamos la clase juego con su constructor
                 this.nivel++
                 this.eliminarEventosClick(); // 31.- eliminamos la posibilidad de hacer click una vez hemos acertado todos los colores
                 if (this.nivel === (ULTIMO_NIVEL + 1)) { // 32.- Si el nivel llega a 10, se acaba el juego porque gana el jugador
-                    // Gana
+                    this.ganoElJuego();
                 } else { // 33.- Si aun no llega a 10 el nivel significa que el juego aún no ha acabado y debe avanzar al siguiente nivel con un retraso de 1.5 segundos
                     setTimeout(this.siguienteNivel, 1500)
                 }
             }
         } else {
-            //perdio
+            this.perdioElJuego();
         }
+    }
+
+    ganoElJuego() {
+        swal('Enhorabuena!', 'Superaste el último nivel', 'success') // 34.- Creamos la función de exito y de derrota
+        .then(this.inicializar) // esta linea y la linea 139-141 hacen lo mismo solo que esta se puede simplificar porque solo llamamos a una funcion y al ser una
+                                // arrow function, nos permite minificarla, quitar los parentesis, las llaves y el =>
+    }
+
+    perdioElJuego() {
+        swal('Que lastima!', 'No superaste el nivel :(', 'error')
+        .then(() => {
+            this.eliminarEventosClick();
+            this.inicializar()
+        })
     }
 }
 

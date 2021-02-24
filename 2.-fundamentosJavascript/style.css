@@ -125,4 +125,8 @@ body {
   -webkit-animation-name: fadeOut;
   animation-name: fadeOut;       
   visibility: hidden;
-  }
+}
+
+* {
+  font-family: Arial, Helvetica, sans-serif;
+}
