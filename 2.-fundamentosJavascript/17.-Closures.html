@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+
+        function crearSaludo(finalDeFrase) {
+            return function (nombre) {
+                console.log(`Hola, ${nombre} ${finalDeFrase}`)
+            }
+        }
+
+        const saludoArgentino = crearSaludo('che');
+        const saludoMexicano = crearSaludo('güey');
+        const saludoColombiano = crearSaludo('amigo');
+
+        saludoArgentino('Javier') // Hola, Javier che
+        saludoMexicano('Javier') // Hola, Javier güey
+        saludoColombiano('Javier') // Hola, Javier amigo
+
+        /* Un closure es una función que recuerda el estado de las cosas cuando fue creada.
+           Una función que devuelve otra función con parámetros invocados en dos veces; primero el de la función ‘padre’ y luego el de la función ‘hijo’.
+
+           La función ‘padre’ es generadora o creadora de otras funciones y la función ‘hijo’ es anónima, es la que nos va a devolver el resultado.
+
+           Llamamos a esa funcion para crear constantes.
+           Ahora podemos llamar a la función nuevamente a través de cada variable constante y pasando el parámetro de la función ‘hijo’ esta vez, el parámetro ‘nombre’.
+
+           A continuación, agregamos la respuesta de la función (el console.log en este caso) en la que accedemos a la variable ‘finalDeFrase’
+           generada en la declaración de los diferentes saludos.
+
+           La variable ‘finalDeFrase’ es la generada en las constantes con el nombre mismo de la función, a partir del parámetro que le pasamos; ‘che’, ‘wey’ o ‘amigo’
+           en este caso.
+           La función ‘hijo’ recuerda cada una de las variables generadas que se usó para crear el saludo. Y la función ‘hijo’ va a ser cada una de las constantes
+           creadas; saludoArgentino, saludoMexicano o saludoColombiano en este mismo caso.
+         
+           Si nos fijamos, al llamar por ejemplo a saludoArgentino con el parámetro 'Javier', este llama a su vez a la función crearSaludo con el parámetro 'che' y
+           al entrar en la función propiamente dicha recuerda tanto el parametro 'che' como el parámetro 'Javier'
+         */
+
+    </script>
+</body>
+</html>

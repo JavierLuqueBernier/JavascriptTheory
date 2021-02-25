@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        /*
+            !6 (factorial de 6) = 6 * 5 * 4 * 3 * 2 * 1 = 720
+            !12 = 12 * 11 * 10 * 9 * 8 * 7 * !6
+        */
+
+        function factorial(n) {
+            if (n === 1) {
+                return 1;
+            }
+
+            return n + factorial(n - 1)
+        }
+
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        /* Los resultados de operaciones se pueden guardar en el cache de las funciones para evitar recalcular valores que ya han sido calculados y
+        ahorrar capacidad computacional */
+
+        function factorial(n) {
+            if (!this.cache) {  // Si no existe en esta función un cache, una memoria interna, entonces se va a crear, siendo un objeto vacio
+                this.cache = {}
+            }
+
+            if(this.cache[n]) { // Si this.cache[n] existe, entonces devuelvemelo, PERO this.cache y this.cahce[n] NO SON LO MISMO
+                return this.cache[n]
+            }
+
+            if (n === 1) {
+                return 1;
+            }
+
+            this.cache[n] = n * factorial(n - 1)    // guardamos en el cache el resultado de esta operacion
+            return this.cache[n]    // Por ultimo, invocamos la memoria del cache
+        }
+    </script>
+</body>
+</html>

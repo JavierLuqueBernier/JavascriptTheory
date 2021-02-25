@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        /*
+
+            Para realizar recursividad necesitamos 2 cosas; 1 caso base y 1 caso recursivo.
+            saremos una división para mostrar las funciones recursivas.
+            13 /_4____
+
+            13 - 4 = 9       1  => caso recursivo
+            9 - 4 = 5        1  => caso recursivo
+            5 - 4 = 1        1  => caso recursivo
+            1 - 4 = -3       0  => caso base
+
+        */
+
+        function divisionEntera(dividendo, divisor) {
+            if (dividendo < divisor) {
+                return 0
+            }
+            
+            return 1 + divisionEntera(dividendo - divisor, divisor)
+
+            // ‘dividendo - divisor’ en el primer parámetro de nuestra función recursiva invocada dentro de sí misma sería el ‘caso recursivo’ que se repetirá
+            // mientras la condición no se cumpla. Cuando la función se cumple, ‘caso base’ termina la recursividad, termina la operación y nos entrega el 
+            // resultado de la división en valor entero.
+
+            // Si nos fijamos, dentro de la función "divisionEntera" estamos llamando a la misma función, lo que se conoce como recursividad.
+            // Hacemos esto para que se reinicie la operacion de division hasta que (en este caso concreto) el dividendo sea menor que el divisor. Es una alternativa
+            // a los ciclos for o while, coln la pega de que consume muchos recursos, por ese motivo no suele utilizarse.
+        }
+    </script>
+</body>
+</html>

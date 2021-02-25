@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+
+        /* 
+        Estructura de datos inmutables
+
+        Las estructuras de datos inmutables nos van a permitir deshacernos de los “efectos colaterales” cuando estamos desarrollando (side effects)
+        */
+
+        const javier = {
+            nombre: 'Javier',
+            apellido: 'Luque',
+            edad: 28
+        }
+
+        const cumpleanos = persona => persona.edad++ 
+        
+        // Si dejaramos esta funcion, estariamos modificando el objeto inicial cada vez que llamaramos a la función, lo que puede
+        // generar fallos, dado que no se mantendría la edad dentro del objeto. 
+        // para evitar esto, deberiamos crear la funcion de la siguiente manera para crear otro objeto con los mismo datos
+        // y solo pisar la edad.
+
+        const cumpleanos = persona => ({
+            ...persona,
+            edad: persona.edad + 1
+        })
+
+
+    </script>
+</body>
+</html>

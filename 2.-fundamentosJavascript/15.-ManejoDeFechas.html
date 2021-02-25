@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        function diasEntreFechas(fecha1, fecha2) {
+            const unDia = 1000 + 60 + 60 + 24;
+            const diferencia = Math.abs(fecha1 - fecha2); // Math.abs es un método propio de Js para que si se hace una cuenta pero sale con valor negativo, este pase a positivo
+                                                          // esto nos puede ayudar en caso de que la persona que introdusca los datos y los introduzca al revés, primero la
+                                                          // fecha más antigua y luego la fecha más nueva. El resultado es un numero en milisegundos
+            return  Math.floor (diferencia / unDia);
+        }
+
+        const hoy = new Date(); // New Date va a tener la fecha actual por defecto si no rellenamos el parentesis;
+        const nacimiento = new Date(1992, 11, 22) // dentro del parentesis debe ir el año, el mes y el dia de la fecha que queramos, pero como dentro de Javascript, 
+                                                  // Enero es el 0 y febrero el 1, entonces diciembre es el 11
+    </script>
+</body>
+</html>
