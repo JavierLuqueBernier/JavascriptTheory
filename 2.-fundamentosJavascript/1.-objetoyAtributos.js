@@ -1,5 +1,6 @@
 //              Clase 6 = OBJETOS  
 
+
 /* Los objetos reunen ciertas caracteristicas en comun (atributos) de un objeto de la vida real*/
 var jose = { // Los objetos se definen delimitados mediante llaves {}
     nombre: 'Jose',
