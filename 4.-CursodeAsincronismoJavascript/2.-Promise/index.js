@@ -1,3 +1,6 @@
+// Las promesas sirven para hacerle entender al programa que algo pasará y que debe seguir ejecutandose mientras tanto
+// A continuacion un ejemplo basico de Promesa
+
 const somethingWillHappen = () => new Promise((resolve, reject) => 
  true ?
  resolve('Hey!') :
